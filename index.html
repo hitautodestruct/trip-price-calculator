@@ -41,13 +41,15 @@
 <script>
 jQuery(function ( $ ) {
 
-  var calculateTripPrice = function () {
+  var calculateTripPrice = function ( event ) {
   
     var params = {
       origin: $('#from').val(),
       destination: $('#to').val(),
       sensor: false
     };
+    
+    event.preventDefault();
     
     $.get('http://maps.googleapis.com/maps/api/directions/json', params, function (data) {
     
