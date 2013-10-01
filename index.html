@@ -18,16 +18,18 @@
             </div>
             <div class="col-md-12">
                 <form role="form" class="form-inline">
-                    <div class="input-group">
+                    <div class="form-group">
                         <input type="text" id="query" class="form-control input-lg">
-                        <label for="from">From</label>
+                        <label for="from" class="sr-only">From</label>
                         <input type="text" id="from" value="Tel-aviv, Israel" class="form-control input-lg">
-                        <label for="to">To</label>
+                        <label for="to" class="sr-only">To</label>
                         <input type="text" id="to" value="Dafna, Israel" class="form-control input-lg">
+                    </div>
+                    <div class="form-group">
                         <input type="text" id="average" value="14" class="form-control input-lg">
-                        <div class="input-group-btn">
-                            <button id="calculate" class="btn btn-success btn-lg">Calculate cost</button>
-                        </div>
+                    </div>
+                    <div class="input-group-btn">
+                        <button id="calculate" class="btn btn-success btn-lg">Calculate cost</button>
                     </div>
                 </form>
             </div>
