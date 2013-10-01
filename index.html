@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<!--
+  Created using jsbin.com
+  Source can be edited via http://jsbin.com/OCIguV/2/edit
+-->
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+
+<style id="jsbin-css">
+.currency:after { content: '\20AA'; }
+</style>
+</head>
+<body>
+  <span id="result" class="currency">0.0</span>
+  <label for="from">From</label>
+  <input type="text" id="from" value="Tel-aviv, Israel">
+  <label for="to">To</label>
+  <input type="text" id="to" value="Dafna, Israel">
+  <input type="text" id="average" value="14">
+  <button id="calculate">Calculate cost</button>
+<script>
+jQuery(function ( $ ) {
+
+  var calculateTripPrice = function () {
+  
+    var params = {
+      origin: $('#from').val(),
+      destination: $('#to').val(),
+      sensor: false
+    };
+    
+    $.get('http://maps.googleapis.com/maps/api/directions/json', params, function (data) {
+    
+      var query = {
+          url: 'http://energy.gov.il/Subjects/Fuel/Pages/GxmsMniPricesAndTaxes.aspx',
+          type: 'html',
+          selector: '.ms-rteTableOddCol-default',
+          extract: 'text'
+        },
+        distance = data.routes[0].legs[0].distance.value / 1000,
+        average = 14,
+        request;
+      
+      request = 'http://dharmafly.noodle-example.jit.su/?q=' +
+              encodeURIComponent(JSON.stringify(query)) +
+              '&callback=?';
+      
+      jQuery.getJSON(request, function (data) {
+        var fuelPrice = parseFloat(data[0].results[0]);
+        $('#result').text( Math.round( (distance / average) * fuelPrice ) );
+      });
+    
+    });
+    
+  };
+  
+  $('#calculate').click( calculateTripPrice );
+  
+});
+</script>
+</body>
+</html>
