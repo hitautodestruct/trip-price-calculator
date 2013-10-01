@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html>
-<!--
-  Created using jsbin.com
-  Source can be edited via http://jsbin.com/OCIguV/2/edit
--->
 <head>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <meta charset=utf-8 />
 <title>JS Bin</title>
 
 <style id="jsbin-css">
 .currency:after { content: '\20AA'; }
 </style>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 </head>
 <body>
-  <span id="result" class="currency">0.0</span>
-  <label for="from">From</label>
-  <input type="text" id="from" value="Tel-aviv, Israel">
-  <label for="to">To</label>
-  <input type="text" id="to" value="Dafna, Israel">
-  <input type="text" id="average" value="14">
-  <button id="calculate">Calculate cost</button>
+  
+<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 id="result" class="currency">0.0</h3>
+            </div>
+            <div class="col-md-12">
+                <form role="form" class="form-inline">
+                    <div class="input-group">
+                        <input type="text" id="query" class="form-control input-lg">
+                        <label for="from">From</label>
+                        <input type="text" id="from" value="Tel-aviv, Israel" class="form-control input-lg">
+                        <label for="to">To</label>
+                        <input type="text" id="to" value="Dafna, Israel" class="form-control input-lg">
+                        <input type="text" id="average" value="14" class="form-control input-lg">
+                        <div class="input-group-btn">
+                            <button id="calculate" class="btn btn-success btn-lg">Calculate cost</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 jQuery(function ( $ ) {
 
