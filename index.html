@@ -14,21 +14,21 @@
 <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h3 id="result" class="currency">0.0</h3>
+                <h3 id="result"></h3>
             </div>
             <div class="col-md-12">
                 <form role="form" class="form-inline">
                     <div class="form-group">
-                        <label for="from">From</label>
-                        <input type="text" id="from" value="Tel-aviv, Israel" class="form-control input-lg">
+                        <label class="sr-only" for="from">From</label>
+                        <input type="text" id="from" value="Tel-aviv, Israel" class="form-control input-lg" title="from (origin)">
                     </div>
                     <div class="form-group">
-                        <label for="to">To</label>
-                        <input type="text" id="to" value="Dafna, Israel" class="form-control input-lg">
+                        <label class="sr-only" for="to">To</label>
+                        <input type="text" id="to" value="Dafna, Israel" class="form-control input-lg" title="to (destination)">
                     </div>
                     <div class="form-group">
-                        <label for="average">km/liter</label>
-                        <input type="text" id="average" value="14" class="form-control input-lg">
+                        <label class="sr-only" for="average">km/liter</label>
+                        <input type="text" id="average" value="14" class="form-control input-lg" title="Fuel Consumption (your vehicle)">
                     </div>
                     <button id="calculate" class="btn btn-success btn-lg">
                       <span class="glyphicon glyphicon-flash"></span> Calculate cost</button>
@@ -36,30 +36,39 @@
             </div>
         </div>
     </div>
-  
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 jQuery(function ( $ ) {
 
+//    var origin1 = new google.maps.LatLng(55.930385, -3.118425);
+
   var calculateTripPrice = function ( event ) {
-  
-    var params = {
-      origin: $('#from').val(),
-      destination: $('#to').val(),
-      sensor: false
-    };
-    
+
     event.preventDefault();
     
-    $.get('http://maps.googleapis.com/maps/api/directions/json', params, function (data) {
+    var service = new google.maps.DistanceMatrixService();
     
+    service.getDistanceMatrix({
+        origins: [ $('#from').val() ],
+        destinations: [ $('#to').val() ],
+        travelMode: google.maps.TravelMode.DRIVING,
+        //durationInTraffic: true,
+        avoidHighways: false,
+        avoidTolls: false
+      }, callback);
+
+    function callback(response, status) {
+        
       var query = {
           url: 'http://energy.gov.il/Subjects/Fuel/Pages/GxmsMniPricesAndTaxes.aspx',
           type: 'html',
           selector: '.ms-rteTableOddCol-default',
           extract: 'text'
         },
-        distance = data.routes[0].legs[0].distance.value / 1000,
+        distanceData = response.rows[0].elements[0].distance,
+        distance = distanceData.value / 1000,
         average = 14,
         request;
       
@@ -68,11 +77,16 @@ jQuery(function ( $ ) {
               '&callback=?';
       
       jQuery.getJSON(request, function (data) {
+        
         var fuelPrice = parseFloat(data[0].results[0]);
-        $('#result').text( Math.round( (distance / average) * fuelPrice ) );
+        
+        $('#result').html([
+             distanceData.text +' / '+ average +' kml * '+ fuelPrice +' L = ',
+             '<mark class="currency">'+ Math.round( (distance / average) * fuelPrice ) +'</mark>'
+        ].join(''));
       });
-    
-    });
+      
+    }
     
   };
   
