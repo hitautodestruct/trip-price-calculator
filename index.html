@@ -175,8 +175,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
             selector: '.ms-rteTableOddCol-default',
             extract: 'text'
           },
-          distanceData = response.rows[0].elements[0].distance,
-          distance = distanceData.value / 1000,
+          distanceData = response.rows[0].elements[0],
+          distance = distanceData.distance.value / 1000,
           average = 14,
           request;
         
@@ -189,8 +189,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
           var fuelPrice = parseFloat(data[0].results[0]);
           
           $('#result').html([
-               distanceData.text +' / '+ average +' kml * '+ fuelPrice +' L = ',
-               '<mark class="currency">'+ Math.round( (distance / average) * fuelPrice ) +'</mark>'
+               distanceData.distance.text +' / '+ average +' kml * '+ fuelPrice +' L = ',
+               '<mark class="currency">'+ Math.round( (distance / average) * fuelPrice ) +'</mark>',
+               ' | ~' + distance.duration.text
           ].join(''));
         });
         
