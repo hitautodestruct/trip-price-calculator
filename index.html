@@ -191,7 +191,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
           $('#result').html([
                distanceData.distance.text +' / '+ average +' kml * '+ fuelPrice +' L = ',
                '<mark class="currency">'+ Math.round( (distance / average) * fuelPrice ) +'</mark>',
-               ' | ~' + distance.duration.text
+               ' | ~' + distanceData.duration.text
           ].join(''));
         });
         
