@@ -93,6 +93,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
           
           var fuelPrice = parseFloat(data[0].results[0]);
           
+          var trip_price = Math.round( (distance / average) * fuelPrice );
+          
           $('#result').html([
               'Distance: ' + distanceData.distance.text,
               '<br>',
@@ -100,9 +102,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
               '<br>',
               'Fuel Price (Per Liter): '+ fuelPrice,
               '<br>',
-              'Estimated Trip Price: <mark class="currency">'+ Math.round( (distance / average) * fuelPrice ) +'</mark>',
+              'Estimated Price (one way): <mark class="currency">'+ trip_price +'</mark>',
               '<br>',
-              'Estimated Time: ' + distanceData.duration.text
+              'Est. Price (there and back): <mark class="currency">'+ trip_price * 2 +'</mark>',
+              '<br>',
+              'Estimated drive time: ' + distanceData.duration.text
           ].join(''));
         });
         
