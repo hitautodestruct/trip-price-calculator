@@ -99,9 +99,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
               'Distance: ' + distanceData.distance.text,
               'Average Km/L: ' + average,
               'Fuel Price (Per Liter): '+ fuelPrice,
+              'Estimated drive time: ' + distanceData.duration.text,
               'Estimated Price (one way): <mark class="currency">'+ trip_price +'</mark>',
-              'Est. Price (there and back): <mark class="currency">'+ trip_price * 2 +'</mark>',
-              'Estimated drive time: ' + distanceData.duration.text
+              'Est. Price (there and back): <mark class="currency">'+ trip_price * 2 +'</mark>'
           ];
           
           list = list.map(function(item){ return '<tr><td>' + item + '</td></tr>'; });
