@@ -1,14 +1,35 @@
 jQuery(function ( $ ) {
 
 //    var origin1 = new google.maps.LatLng(55.930385, -3.118425);
+var directionsDisplay, map;
+
+
+function calc_route(start,end) {
+  var request = {
+      origin:start,
+      destination:end,
+      travelMode: google.maps.TravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
+}
+
+
 
 function initialize() {
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  
   var mapOptions = {
     center: new google.maps.LatLng(55.930385, -3.118425),
     zoom: 13
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
+
+  directionsDisplay.setMap(map);
 
   var input_from = document.getElementById('from');
   var input_to = document.getElementById('to');
@@ -113,6 +134,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
           avoidHighways: false,
           avoidTolls: false
         }, callback);
+
+      calc_route( origin, destination );
   
       function callback(response, status) {
           
