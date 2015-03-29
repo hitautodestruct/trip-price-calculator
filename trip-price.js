@@ -2,7 +2,7 @@ jQuery(function ( $ ) {
 
 //    var origin1 = new google.maps.LatLng(55.930385, -3.118425);
 var directionsDisplay, map;
-
+var directionsService = new google.maps.DirectionsService();
 
 function calc_route(start,end) {
   var request = {
@@ -16,8 +16,6 @@ function calc_route(start,end) {
     }
   });
 }
-
-
 
 function initialize() {
   directionsDisplay = new google.maps.DirectionsRenderer();
