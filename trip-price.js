@@ -101,6 +101,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
               'Fuel Price (Per Liter): '+ fuelPrice,
               '<br>',
               'Estimated Trip Price: <mark class="currency">'+ Math.round( (distance / average) * fuelPrice ) +'</mark>',
+              '<br>',
               'Estimated Time: ' + distanceData.duration.text
           ].join(''));
         });
