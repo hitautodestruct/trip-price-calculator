@@ -94,20 +94,21 @@ google.maps.event.addDomListener(window, 'load', initialize);
           var fuelPrice = parseFloat(data[0].results[0]);
           
           var trip_price = Math.round( (distance / average) * fuelPrice );
-          
-          $('#result').html([
+
+          var list = [
               'Distance: ' + distanceData.distance.text,
-              '<br>',
               'Average Km/L: ' + average,
-              '<br>',
               'Fuel Price (Per Liter): '+ fuelPrice,
-              '<br>',
               'Estimated Price (one way): <mark class="currency">'+ trip_price +'</mark>',
-              '<br>',
               'Est. Price (there and back): <mark class="currency">'+ trip_price * 2 +'</mark>',
-              '<br>',
               'Estimated drive time: ' + distanceData.duration.text
-          ].join(''));
+          ];
+          
+          list = list.map(function(item){ return '<tr><td>' + item + '</td></tr>'; });
+          list.unshift('<table class="table table-striped">');
+          list.push('</table>');
+          
+          $('#result').html( list.join('') );
         });
         
       }
