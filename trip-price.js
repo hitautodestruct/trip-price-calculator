@@ -91,7 +91,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         
         jQuery.getJSON(request, function (data) {
           
-          var fuelPrice = parseFloat(data[0].results[0]);
+          var fuelPrice = parseFloat(data[0].results[0]) || 5.96;
           
           var trip_price = Math.round( (distance / average) * fuelPrice );
 
