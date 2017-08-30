@@ -85,7 +85,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
           average = 14,
           request;
         
-        request = 'http://example.noodlejs.com/?q=' +
+        request = 'https://trip-price-calculator.now.sh/?q=' +
                 encodeURIComponent(JSON.stringify(query)) +
                 '&callback=?';
         
